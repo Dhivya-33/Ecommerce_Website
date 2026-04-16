@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="View product details, specifications, and add to your cart on ShopWave.">
+  <title>Product Details — ShopWave</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="container">
+      <div class="product-detail" id="product-detail">
+        <div class="spinner"></div>
+      </div>
+      
+      <!-- Reviews Section -->
+      <section class="reviews-section" id="reviews-section" style="display:none">
+        <div class="reviews-header">
+          <h2 class="section-title">Customer <span>Reviews</span></h2>
+          <div class="rating-overview">
+            <span class="avg-stars" id="avg-stars"></span>
+            <span class="review-count" id="review-count"></span>
+          </div>
+        </div>
+
+        <div class="review-form-container" id="review-form-container">
+          <h3>Leave a Review</h3>
+          <form id="review-form">
+            <div class="star-rating" id="star-rating-input">
+              <span class="star" data-value="5">★</span>
+              <span class="star" data-value="4">★</span>
+              <span class="star" data-value="3">★</span>
+              <span class="star" data-value="2">★</span>
+              <span class="star" data-value="1">★</span>
+            </div>
+            <textarea id="review-comment" class="form-input" placeholder="Share your thoughts about this product..." required></textarea>
+            <button type="submit" class="btn btn-primary">Submit Review</button>
+          </form>
+        </div>
+
+        <div class="reviews-list" id="reviews-list">
+          <!-- Reviews will be rendered here -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/reviews.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', loadProductDetail);
+  </script>
+</body>
+</html>

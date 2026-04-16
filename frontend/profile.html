@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manage your ShopWave profile and account settings.">
+  <title>My Profile — ShopWave</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="container">
+      <div class="auth-container">
+        <div class="auth-card">
+          <h1 class="auth-title">My <span>Profile</span></h1>
+          <p class="auth-subtitle">Update your account information</p>
+
+          <form id="profile-form">
+            <div class="form-group">
+              <label class="form-label">Username</label>
+              <input type="text" id="prof-username" class="form-input" readonly style="opacity:0.6">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="prof-email">Email Address</label>
+              <input type="email" id="prof-email" class="form-input" placeholder="email@example.com" required>
+            </div>
+            <hr style="margin:var(--space-8) 0;border:0;border-top:1px solid var(--color-border)">
+            <h3 style="margin-bottom:var(--space-4)">Change Password</h3>
+            <div class="form-group">
+              <label class="form-label" for="prof-new-password">New Password (leave blank to keep current)</label>
+              <input type="password" id="prof-new-password" class="form-input" placeholder="••••••••">
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:var(--space-4)">Update Profile</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ShopWave — Discover premium products across electronics, clothing, and home essentials. Shop the latest trends with confidence.">
+  <title>ShopWave — Premium Online Store</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="container">
+      <!-- Hero Section -->
+      <section class="hero">
+        <h1 class="hero-title">Discover <span>Premium</span> Products</h1>
+        <p class="hero-subtitle">
+          Curated collections of electronics, fashion, and home essentials — designed for the modern lifestyle.
+        </p>
+      </section>
+
+      <!-- Search & Filter -->
+      <div class="search-filter-bar">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-input" class="search-input" placeholder="Search products..." oninput="handleSearchInput(event)" autocomplete="off">
+          <div id="search-suggestions" class="search-suggestions"></div>
+        </div>
+        <select id="category-filter" class="filter-select" onchange="renderFilteredProducts()">
+          <option value="">All Categories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Home & Kitchen">Home & Kitchen</option>
+        </select>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="product-grid" id="product-grid">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', loadProducts);
+  </script>
+</body>
+</html>

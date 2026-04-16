@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Review your shopping cart and proceed to checkout on ShopWave.">
+  <title>Shopping Cart — ShopWave</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="page-content">
+    <div class="container">
+      <h1 class="page-title">Shopping Cart</h1>
+      <p class="page-subtitle" id="cart-count-text"></p>
+
+      <div class="cart-layout" id="cart-layout">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/components.js"></script>
+  <script>
+    function renderCart() {
+      const layout = document.getElementById('cart-layout');
+      const countText = document.getElementById('cart-count-text');
+      const items = Cart.getItems();
+
+      if (items.length === 0) {
+        layout.innerHTML = `
+          <div class="empty-state" style="grid-column:1/-1">
+            <div class="empty-state-icon">🛒</div>
+            <h3 class="empty-state-title">Your cart is empty</h3>
+            <p class="empty-state-text">Discover our amazing products and find something you love!</p>
+            <a href="index.html" class="btn btn-primary btn-lg">Browse Products</a>
+          </div>`;
+        countText.textContent = '';
+        return;
+      }
+
+      countText.textContent = `${Cart.getCount()} item${Cart.getCount() !== 1 ? 's' : ''} in your cart`;
+
+      const itemsHtml = items.map(item => `
+        <div class="cart-item" id="cart-item-${item.productId}">
+          <div class="cart-item-image">
+            <img src="${item.imageUrl}" alt="${item.productName}">
+          </div>
+          <div class="cart-item-details">
+            <div class="cart-item-name">${item.productName}</div>
+            <div class="cart-item-price">${formatPrice(item.price)} each</div>
+          </div>
+          <div class="cart-item-actions">
+            <div class="quantity-control">
+              <button class="quantity-btn" onclick="updateCartQty(${item.productId}, ${item.quantity - 1})">−</button>
+              <span class="quantity-value">${item.quantity}</span>
+              <button class="quantity-btn" onclick="updateCartQty(${item.productId}, ${item.quantity + 1})">+</button>
+            </div>
+          </div>
+          <div class="cart-item-total">${formatPrice(item.price * item.quantity)}</div>
+          <button class="remove-btn" onclick="removeCartItem(${item.productId})" title="Remove item">✕</button>
+        </div>
+      `).join('');
+
+      const summaryHtml = `
+        <div class="cart-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-row">
+            <span>Subtotal (${Cart.getCount()} items)</span>
+            <span>${formatPrice(Cart.getTotal())}</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span style="color:var(--color-success)">Free</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span>${formatPrice(Cart.getTotal())}</span>
+          </div>
+          <a href="checkout.html" class="btn btn-primary btn-lg">Proceed to Checkout</a>
+        </div>
+      `;
+
+      layout.innerHTML = `
+        <div class="cart-items">${itemsHtml}</div>
+        ${summaryHtml}
+      `;
+    }
+
+    function updateCartQty(productId, qty) {
+      if (qty < 1) {
+        removeCartItem(productId);
+        return;
+      }
+      Cart.updateQuantity(productId, qty);
+      renderCart();
+    }
+
+    function removeCartItem(productId) {
+      Cart.removeItem(productId);
+      showToast('Item removed from cart', 'info');
+      renderCart();
+    }
+
+    document.addEventListener('DOMContentLoaded', renderCart);
+  </script>
+</body>
+</html>
